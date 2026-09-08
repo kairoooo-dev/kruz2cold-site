@@ -231,6 +231,103 @@
             line-height: 1.7;
         }
 
+        .more-section {
+            margin-top: 50px;
+        }
+
+        .more-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            border-top: 1px solid #e8e8e8;
+            padding-top: 30px;
+        }
+
+        .more-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .add-product-btn {
+            padding: 10px 24px;
+            background: #242424;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-product-btn:hover {
+            background: #333;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-card-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-card-image img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+        }
+
+        .product-card-info {
+            padding: 16px;
+        }
+
+        .product-card-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .product-card-author {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .product-card-price {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .product-card-free {
+            color: #16a34a;
+        }
+
+        .product-card-paid {
+            color: #1a1a1a;
+        }
+
         .footer {
             display: flex;
             align-items: center;
@@ -252,6 +349,108 @@
             text-decoration: none;
         }
 
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            width: 90%;
+            max-width: 480px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .modal h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .modal label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .modal input, .modal textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            font-family: inherit;
+        }
+
+        .modal textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .modal input[type="file"] {
+            padding: 8px;
+        }
+
+        .modal .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #242424;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal .submit-btn:hover {
+            background: #333;
+        }
+
+        .modal .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .modal .error {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .modal .success {
+            color: #16a34a;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            display: none;
+        }
+
         @media (max-width: 768px) {
             .product-layout {
                 grid-template-columns: 1fr;
@@ -262,6 +461,9 @@
             }
             .main {
                 padding: 30px 20px 60px;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
         }
     </style>
@@ -305,7 +507,7 @@
                 </div>
                 <div class="share-section">
                     <span class="share-label">Share this</span>
-                    <button class="share-btn" title="Copy link">
+                    <button class="share-btn" title="Copy link" onclick="copyLink()">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                             <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
@@ -335,6 +537,15 @@
             <h3>Description</h3>
             <p>Get the White themed Texturepack Created by Pigman.</p>
         </div>
+
+        <div class="more-section">
+            <div class="more-header">
+                <h2>More Products</h2>
+                <button class="add-product-btn" onclick="openModal()">+ Add Product</button>
+            </div>
+            <div class="products-grid" id="products-grid">
+            </div>
+        </div>
     </div>
 
     <footer class="footer">
@@ -345,8 +556,42 @@
             <a href="#">Privacy</a>
         </div>
     </footer>
+
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2>Add Product</h2>
+
+            <div id="password-step">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter password">
+                <div class="error" id="pw-error">Wrong password</div>
+                <button class="submit-btn" onclick="checkPassword()">Continue</button>
+            </div>
+
+            <div id="form-step" style="display:none">
+                <label for="prod-name">Product Name</label>
+                <input type="text" id="prod-name" placeholder="e.g. Dark Pack">
+
+                <label for="prod-desc">Description</label>
+                <textarea id="prod-desc" placeholder="Describe your product..."></textarea>
+
+                <label for="prod-price">Price (leave blank for FREE)</label>
+                <input type="text" id="prod-price" placeholder="e.g. 4.99 or leave empty">
+
+                <label for="prod-file">File (optional, for download link)</label>
+                <input type="file" id="prod-file">
+
+                <div class="error" id="form-error">Please fill in a product name</div>
+                <div class="success" id="form-success">Product added!</div>
+                <button class="submit-btn" onclick="addProduct()">Add Product</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const COUNTER_KEY = 'kruz2cold-pigwhite-installs';
+        const PRODUCTS_KEY = 'kruz2cold-products';
 
         function getCounter() {
             return localStorage.getItem(COUNTER_KEY) || '0';
@@ -363,6 +608,121 @@
             setCounter(count);
             document.getElementById('install-count').textContent = count;
         }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+        }
+
+        function getProducts() {
+            try {
+                return JSON.parse(localStorage.getItem(PRODUCTS_KEY)) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveProducts(products) {
+            localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const products = getProducts();
+
+            const defaultProducts = [
+                { name: 'PigWhite', desc: 'White themed texture pack by Pigman', price: 'FREE', img: 'pfp.png' }
+            ];
+
+            const all = [...defaultProducts, ...products];
+
+            grid.innerHTML = all.map(p => {
+                const isFree = !p.price || p.price === 'FREE' || p.price === '0';
+                return `
+                    <div class="product-card" onclick="${p.file ? `window.open('${p.file}','_blank')` : ''}">
+                        <div class="product-card-image">
+                            <img src="${p.img || 'pfp.png'}" alt="${p.name}">
+                        </div>
+                        <div class="product-card-info">
+                            <div class="product-card-title">${p.name}</div>
+                            <div class="product-card-author">Kruz2Cold</div>
+                            <div class="product-card-price ${isFree ? 'product-card-free' : 'product-card-paid'}">${isFree ? 'FREE' : '$' + p.price}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openModal() {
+            document.getElementById('modal-overlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+            document.getElementById('password-step').style.display = 'block';
+            document.getElementById('form-step').style.display = 'none';
+            document.getElementById('password').value = '';
+            document.getElementById('pw-error').style.display = 'none';
+            document.getElementById('form-error').style.display = 'none';
+            document.getElementById('form-success').style.display = 'none';
+        }
+
+        function checkPassword() {
+            const pw = document.getElementById('password').value;
+            if (pw === 'Kruz2Cold') {
+                document.getElementById('password-step').style.display = 'none';
+                document.getElementById('form-step').style.display = 'block';
+            } else {
+                document.getElementById('pw-error').style.display = 'block';
+            }
+        }
+
+        function addProduct() {
+            const name = document.getElementById('prod-name').value.trim();
+            const desc = document.getElementById('prod-desc').value.trim();
+            const price = document.getElementById('prod-price').value.trim();
+            const fileInput = document.getElementById('prod-file');
+
+            if (!name) {
+                document.getElementById('form-error').style.display = 'block';
+                return;
+            }
+
+            const product = {
+                name: name,
+                desc: desc,
+                price: price || 'FREE',
+                img: 'pfp.png',
+                file: null
+            };
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    product.file = e.target.result;
+                    const products = getProducts();
+                    products.push(product);
+                    saveProducts(products);
+                    renderProducts();
+                    document.getElementById('form-success').style.display = 'block';
+                    document.getElementById('form-error').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                const products = getProducts();
+                products.push(product);
+                saveProducts(products);
+                renderProducts();
+                document.getElementById('form-success').style.display = 'block';
+                document.getElementById('form-error').style.display = 'none';
+            }
+        }
+
+        document.getElementById('modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        renderProducts();
     </script>
 </body>
 </html>
