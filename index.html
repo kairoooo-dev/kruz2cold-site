@@ -294,10 +294,10 @@
                     <a href="#">View shop</a>
                 </div>
                 <div class="product-price">FREE</div>
-                <a href="Pigman-White.zip" download class="buy-btn">Install Now</a>
+                <a href="Pigman-White.zip" download class="buy-btn" onclick="trackInstall()">Install Now</a>
                 <div class="sold">
                     <span>🔥</span>
-                    <span>451 installed</span>
+                    <span><span id="install-count">0</span> installed</span>
                 </div>
                 <div class="tag">
                     <span>📦</span>
@@ -333,7 +333,7 @@
 
         <div class="description">
             <h3>Description</h3>
-            <p>Get the White themed Texturepack made by Kruz2Cold.</p>
+            <p>Get the White themed Texturepack Created by Pigman.</p>
         </div>
     </div>
 
@@ -345,5 +345,24 @@
             <a href="#">Privacy</a>
         </div>
     </footer>
+    <script>
+        const COUNTER_KEY = 'kruz2cold-pigwhite-installs';
+
+        function getCounter() {
+            return localStorage.getItem(COUNTER_KEY) || '0';
+        }
+
+        function setCounter(val) {
+            localStorage.setItem(COUNTER_KEY, val);
+        }
+
+        document.getElementById('install-count').textContent = getCounter();
+
+        function trackInstall() {
+            let count = parseInt(getCounter()) + 1;
+            setCounter(count);
+            document.getElementById('install-count').textContent = count;
+        }
+    </script>
 </body>
 </html>
